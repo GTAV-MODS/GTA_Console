@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="..\vendor\imgui\imgui.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vendor\imgui\imgui_demo.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vendor\imgui\imgui_draw.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vendor\imgui\backends\imgui_impl_dx11.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vendor\imgui\backends\imgui_impl_win32.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vendor\imgui\imgui_tables.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vendor\imgui\imgui_widgets.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Memory\Memory.cpp">
+      <Filter>Hook</Filter>
+    </ClCompile>
+    <ClCompile Include="Lib\scrThread.cpp">
+      <Filter>Hook</Filter>
+    </ClCompile>
+    <ClCompile Include="Memory\Hwnd.cpp">
+      <Filter>Hook</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Root</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Main.h" />
+    <ClInclude Include="nativesNoNamespaces.h" />
+    <ClInclude Include="Memory\Memory.h">
+      <Filter>Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory\Hook.h">
+      <Filter>Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\scrThread.h">
+      <Filter>Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory\Handle.h">
+      <Filter>Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory\Hwnd.h">
+      <Filter>Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Root</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\Misc.h">
+      <Filter>Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\vendor\minhook\build\VC16\lib\Release\libMinHook.x64.lib" />
+    <Library Include="..\vendor\scripthookv\lib\ScriptHookV.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="IMGUI">
+      <UniqueIdentifier>{909f6e0a-d4ad-469b-abc5-1dbb94a81333}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hook">
+      <UniqueIdentifier>{601301ee-5bed-4719-9596-c039c9fa7c23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Root">
+      <UniqueIdentifier>{b74fc310-9163-49d3-8e85-ae9f58d8bd6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Console">
+      <UniqueIdentifier>{63fe00b2-249f-4892-b4e8-84b3c68afac8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{ee30416f-f924-476e-a01c-5d69213f0091}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
