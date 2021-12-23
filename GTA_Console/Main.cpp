@@ -273,10 +273,10 @@ void Main::Loop()
 			{
 				ms_bDidInit = true;
 				LOG_INFO(); printf("Main thread ready!\n");
-
-				console.RegisterCommand("/test", []() {printf("Hello world TEST \n"); });
-				console.RegisterCommand("/second", []() {printf("Hello world SECOND \n"); });
-				console.RegisterCommand("/clear", []() {console.ClearLog(); });
+			
+				console.RegisterCommand("/help", [](std::vector<std::string> args) { console.AddLog("List of available commands :"); for (auto const& cmd : console.UserCommandList) console.AddLog("%s", (const char*)cmd.first.data()); });
+				console.RegisterCommand("/test", [](std::vector<std::string> args) { console.AddLog("Hello world TEST"); });
+				console.RegisterCommand("/clear", [](std::vector<std::string> args) {console.ClearLog(); });
 			}
 		}
 	}
