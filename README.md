@@ -35,5 +35,5 @@ So that's mean the mod is correctly injected next just press F8 and enjoy.
 
 
 ## Video : 
-![Preview](https://www.youtube.com/watch?v=EK4ZSIKgT1Y)
+https://www.youtube.com/watch?v=EK4ZSIKgT1Y
 
