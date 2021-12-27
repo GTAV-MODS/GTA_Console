@@ -1,20 +1,19 @@
 ﻿#include "stdafx.h"
-#include "Main.h"
-#include <cstdio>
 
 
 /*
 											*\(-_-)/*
-						--------||Script made by Super.Cool.Ninja||--------
---------||Thanks a lot to Pongo1231 for having release this source code based with IMGUI hooked.||--------
+						--------||Script made by SuperCoolNinja||--------
+--------||Thanks a lot to Pongo1231 for having release his source code based with IMGUI hooked.||--------
 					Pongo source code: https://github.com/pongo1231/V_ScriptViewer
 */
 
+#pragma region Init_Stuff
 static bool ms_bDidInit = false; //Check if the thread has been reloaded.
 static bool ms_bDidImguiInit = false; //Check if IMGUI has been init.
 
+//Instance of the main console : 
 Console console;
-
 
 //Change State (OPEN/CLOSE) CONSOLE CONTROL(F8) :
 static bool ms_isConsoleOpen = false;
@@ -24,6 +23,9 @@ static inline void SetConsoleOpenState(bool state)
 	ms_isConsoleOpen = state;
 	ms_bHasConsoleOpenStateJustChanged = true;
 }
+#pragma endregion
+
+#pragma region HOOK_IMGUI_STUFF
 
 static LRESULT(*OG_WndProc)(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 static LRESULT HK_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -42,7 +44,7 @@ static LRESULT HK_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			break;
 		}
 	}
-		
+
 	if (ms_isConsoleOpen)
 	{
 		ImGuiIO& io = ImGui::GetIO();
@@ -123,6 +125,7 @@ static HRESULT HK_OnPresence(IDXGISwapChain* pSwapChain, UINT uiSyncInterval, UI
 		ImGui::NewFrame();
 		ImGui::SetNextWindowSize({ 200.f, 100.f });
 
+		//Create new instance of our console: 
 		console.ShowConsole(&ms_isConsoleOpen);
 		
 		ImGui::Render();
@@ -164,23 +167,11 @@ static __int64 HK_ScriptRunHook(rage::scrThread* pScrThread)
 	return OG_ScriptRunHook(pScrThread);
 }
 
-void Main::Uninit()
-{
-	if (ms_bDidImguiInit)
-	{
-		ImGui_ImplDX11_Shutdown();
-		ImGui_ImplWin32_Shutdown();
+#pragma endregion
 
-		ImGui::DestroyContext();
-	}
 
-	if (ms_pPresentVftEntryAddr)
-		Memory::Write<void*>(ms_pPresentVftEntryAddr, *OG_OnPresence);
 
-	if (ms_pResizeBuffersAddr)
-		Memory::Write<void*>(ms_pResizeBuffersAddr, *OG_ResizeBuffers);
-}
-
+#pragma region SwapChainHooks_IMGUI
 static bool InitSwapChainHooks()
 {
 	// Create dummy device and swap chain to patch IDXGISwapChain's vftable
@@ -237,7 +228,28 @@ static bool InitSwapChainHooks()
 
 	return true;
 }
+#pragma endregion
 
+#pragma region UNHOOK_IMGUI_STUFF
+void Main::Uninit()
+{
+	if (ms_bDidImguiInit)
+	{
+		ImGui_ImplDX11_Shutdown();
+		ImGui_ImplWin32_Shutdown();
+
+		ImGui::DestroyContext();
+	}
+
+	if (ms_pPresentVftEntryAddr)
+		Memory::Write<void*>(ms_pPresentVftEntryAddr, *OG_OnPresence);
+
+	if (ms_pResizeBuffersAddr)
+		Memory::Write<void*>(ms_pResizeBuffersAddr, *OG_ResizeBuffers);
+}
+#pragma endregion
+
+#pragma region MAIN_THREAD
 void Main::Loop()
 {
 	if (ms_bDidInit)
@@ -272,14 +284,15 @@ void Main::Loop()
 			if (rage::scrThread::ms_ppThreads && rage::scrThread::ms_pcwThreads)
 			{
 				ms_bDidInit = true;
-				LOG_INFO(); printf("Main thread ready!\n");
-			
-				console.RegisterCommand("/help", [](std::vector<std::string> args) { console.AddLog("List of available commands :"); for (auto const& cmd : console.UserCommandList) console.AddLog("%s", (const char*)cmd.first.data()); });
-				console.RegisterCommand("/test", [](std::vector<std::string> args) { console.AddLog("Hello world TEST"); });
-				console.RegisterCommand("/clear", [](std::vector<std::string> args) {console.ClearLog(); });
+				LOG_SUCCESS(); printf("thread ready!\n");
 			}
 		}
 	}
+
+
+	//Init our commands this is where you will add your own commands and call it :
+	Commands::InitCommands();
+
 
 	while (true)
 	{
@@ -289,6 +302,18 @@ void Main::Loop()
 			continue;
 
 		if (ms_isConsoleOpen)
-			DISABLE_ALL_CONTROL_ACTIONS(0);
+			PAD::DISABLE_ALL_CONTROL_ACTIONS(0);
+
+		//Check if we can execute our command :
+		if (Commands::callExecCommand)
+		{
+			//Execute the command : 
+			Commands::ExecCommand();
+			
+			//Clear the buffer with empty string :
+			strcpy(Commands::InputBuf, ""); 
+		}
 	}
 }
+
+#pragma endregion

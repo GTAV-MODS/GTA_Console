@@ -1,6 +1,5 @@
 #pragma once
 
-#include "nativesNoNamespaces.h"
 #include "Main.h"
 
 #include "Memory/Memory.h"
@@ -21,7 +20,10 @@
 #include "../vendor/imgui/backends/imgui_impl_dx11.h"
 #include "../vendor/imgui/backends/imgui_impl_win32.h"
 
+#include "Commands.h"
 #include "Utils.h"
+#include "Console.h"
+
 
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
@@ -39,3 +41,27 @@
 #include <mutex>
 #include <cstring>
 #include <algorithm>
+#include <cstdio>
+
+
+
+//Set the text color to GREEN : 
+#define LOG_SUCCESS()                         \
+{                                          \
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); \
+	SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN); \
+}
+
+//Set the text color to RED : 
+#define LOG_ERROR()                         \
+{                                          \
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); \
+	SetConsoleTextAttribute(hConsole, FOREGROUND_RED); \
+}
+
+//Set the text color to INTENSITY : 
+#define LOG_INFO()                         \
+{                                          \
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); \
+	SetConsoleTextAttribute(hConsole, FOREGROUND_INTENSITY); \
+}

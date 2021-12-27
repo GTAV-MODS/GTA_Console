@@ -41,9 +41,9 @@ namespace Memory
 	Handle FindPattern(const std::string& szPattern)
 	{
 		std::vector<int> rgiBytes;
-
 		std::string szSub = szPattern;
 		int offset = 0;
+		
 		while ((offset = szSub.find(' ')) != szSub.npos)
 		{
 			std::string szByteStr = szSub.substr(0, offset);
@@ -59,6 +59,8 @@ namespace Memory
 
 			szSub = szSub.substr(offset + 1);
 		}
+
+
 		if ((offset = szPattern.rfind(' ')) != szSub.npos)
 		{
 			std::string szByteStr = szPattern.substr(offset + 1);
@@ -66,9 +68,7 @@ namespace Memory
 		}
 
 		if (rgiBytes.empty())
-		{
 			return Handle();
-		}
 
 		int iCount = 0;
 		for (DWORD64 dwAddr = m_baseAddr; dwAddr < m_endAddr; dwAddr++)
@@ -86,7 +86,7 @@ namespace Memory
 			}
 		}
 
-		LOG_ERROR(); printf("Couldn't find pattern %s : \n", szPattern);
+		LOG_ERROR(); printf("Couldn't find pattern %p : \n", szPattern);
 
 		return Handle();
 	}

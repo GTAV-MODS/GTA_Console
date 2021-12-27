@@ -2,11 +2,38 @@
 #include "types.h"
 #include "nativeCaller.h"
 
+
+
+
+
+
+inline Hash GET_HASH_KEY(const char* string)
+{
+	int length = strlen(string);
+
+	DWORD hash, i;
+	for (hash = i = 0; i < length; ++i)
+	{
+		hash += tolower(string[i]);
+		hash += (hash << 10);
+		hash ^= (hash >> 6);
+	}
+
+	hash += (hash << 3);
+	hash ^= (hash >> 11);
+	hash += (hash << 15);
+
+	return hash;
+}
+
+
+
 namespace SYSTEM
 {
 	// Pauses execution of the current script, please note this behavior is only seen when called from one of the game script files(ysc). In order to wait an asi script use "static void WAIT(DWORD time);" found in main.h
 	//static void WAIT(int ms) { invoke<Void>(0x4EDE34FBADD967A6, ms); } // 0x4EDE34FBADD967A6 0x7715C03B b323
 	
+
 	
 	// Examples:
 	//  g_384A = SYSTEM::START_NEW_SCRIPT("cellphone_flashhand", 1424);

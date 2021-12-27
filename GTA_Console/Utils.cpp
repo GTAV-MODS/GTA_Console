@@ -3,25 +3,6 @@
 
 
 
-//SOURCE : https://www.codegrepper.com/code-examples/cpp/string+split+c%2B%2B
-std::vector<std::string> Utils::split(std::string x, char delim = ' ')
-{
-	x += delim;
-	std::vector<std::string> splitted;
-	std::string temp = "";
-	for (int i = 0; i < x.length(); i++)
-	{
-		if (x[i] == delim)
-		{
-			splitted.push_back(temp);
-			temp = "";
-			i++;
-		}
-		temp += x[i];
-	}
-	return splitted;
-}
-
 void  Utils::Strtrim(char* s)
 {
 	char* str_end = s + strlen(s);

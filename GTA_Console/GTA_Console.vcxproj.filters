@@ -39,10 +39,15 @@
     <ClCompile Include="Utils.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Commands.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Filter>Console</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h" />
-    <ClInclude Include="nativesNoNamespaces.h" />
     <ClInclude Include="Memory\Memory.h">
       <Filter>Hook</Filter>
     </ClInclude>
@@ -67,6 +72,12 @@
     <ClInclude Include="Utils.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Commands.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Console.h">
+      <Filter>Console</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\vendor\minhook\build\VC16\lib\Release\libMinHook.x64.lib" />
@@ -87,6 +98,9 @@
     </Filter>
     <Filter Include="Utils">
       <UniqueIdentifier>{ee30416f-f924-476e-a01c-5d69213f0091}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Commands">
+      <UniqueIdentifier>{5d517ec5-89cb-4843-9e54-fc0f7d133d26}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
