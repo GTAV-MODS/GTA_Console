@@ -1,5 +1,5 @@
 # GTA_Console
-BEFORE EVERYTHING,
+BEFORE EVERYTHING, (Thanks to pongo1231 for having release his source code with Imgui hooked.)
 This mod has been push to help Developper, you clearly need to got some basic with C++ before using this mod. (no need to be expert).
 This is a simple modern console using IMGUI.
 only for Grand Theft Auto V Solo.
@@ -36,4 +36,7 @@ So that's mean the mod is correctly injected next just press F8 and enjoy.
 
 ## Video : 
 https://www.youtube.com/watch?v=EK4ZSIKgT1Y
+
+
+--------------||by Super.Cool.Ninja||--------------
 
