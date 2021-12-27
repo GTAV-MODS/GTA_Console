@@ -6,7 +6,7 @@
 unsigned int __stdcall showConsoleDebug(void* arg)
 {
 	AllocConsole();
-	SetConsoleTitle("GTA PED SPAWNER BY SUPER COOL NINJA VERSION 1.0");
+	SetConsoleTitle("GTA CONSOLE BY SUPER COOL NINJA VERSION 1.0");
 	freopen("CONIN$", "r", stdin);
 	freopen("CONOUT$", "w", stdout);
 	freopen("CONOUT$", "w", stderr);
