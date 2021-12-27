@@ -10,7 +10,8 @@ Go to the project/settings make sure all configurations are selected then select
 Now change the Output directory to your game directory. (Make sure to have your MSVC Open in Administrator mode else you can't build it).
 
 ## Configuration : 
-https://cdn.discordapp.com/attachments/869316172384960552/925150831114870824/unknown.png
+![Configuration](https://cdn.discordapp.com/attachments/869316172384960552/925150831114870824/unknown.png)
+
 
 
 ## Why did you make that console ?
@@ -30,6 +31,9 @@ Simply add the .asi file into your directory game with of course ScriptHook V an
 So that's mean the mod is correctly injected next just press F8 and enjoy.
 
 ## Screen :
-https://cdn.discordapp.com/attachments/869316172384960552/925147702709325905/unknown.png
+![Screen](https://cdn.discordapp.com/attachments/869316172384960552/925147702709325905/unknown.png)
+
 
 ## Video : 
+![Preview](https://www.youtube.com/watch?v=EK4ZSIKgT1Y)
+
