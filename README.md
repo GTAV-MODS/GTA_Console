@@ -31,7 +31,7 @@ Simply add the .asi file into your directory game with of course ScriptHook V an
 So that's mean the mod is correctly injected next just press F8 and enjoy.
 
 ## Usage :
-### To register a command : 
+### To register a command your callback should always be of type void. : 
 ```c++
  //Parameter(String_view nameOfYourCommands, Void Function CallBack which will be called once your commands enter, vector of string which will contain your args)
  Commands::RegisterCommand("/yourCommands", [](std::vector<std::string> args) { Your logic when you enter your command });
