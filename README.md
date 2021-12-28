@@ -33,10 +33,18 @@ So that's mean the mod is correctly injected next just press F8 and enjoy.
 ## Usage :
 ### To register a command : 
 ```c++
- //Parameter(String_view nameOfYourCommands, Function CallBack which will be called once your commands enter, vector of string which will contain your args)
+ //Parameter(String_view nameOfYourCommands, Void Function CallBack which will be called once your commands enter, vector of string which will contain your args)
  Commands::RegisterCommand("/yourCommands", [](std::vector<std::string> args) { Your logic when you enter your command });
 
-//For the exemple, i did use a lambda function, but you can use instead a function name that you will call outside.
+//For the exemple, i did use a lambda function, but you can use instead a void function name that you will call outside exemple : .
+
+void myFunctionCBOutside(std::vector<std::string> args)
+{
+ //Your logic
+}
+
+Commands::RegisterCommand("/yourCommands", myFunctionCBOutside);
+
 ```
 
 ## Screen :
