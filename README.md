@@ -30,6 +30,15 @@ If you do have the last version you can easily downgrade your, just type on goog
 Simply add the .asi file into your directory game with of course ScriptHook V and once you will run your game you will see a console open.
 So that's mean the mod is correctly injected next just press F8 and enjoy.
 
+## Usage :
+### To register a command : 
+```c++
+ //Parameter(String_view nameOfYourCommands, Function CallBack which will be called once your commands enter, vector of string which will contain your args)
+ Commands::RegisterCommand("/yourCommands", [](std::vector<std::string> args) { Your logic when you enter your command });
+
+//For the exemple, i did use a lambda function, but you can use instead a function name that you will call outside.
+```
+
 ## Screen :
 ![Screen](https://cdn.discordapp.com/attachments/869316172384960552/925147702709325905/unknown.png)
 
