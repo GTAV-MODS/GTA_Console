@@ -46,6 +46,14 @@ void myFunctionCBOutside(std::vector<std::string>& args)
 Commands::RegisterCommand("/yourCommands", myFunctionCBOutside);
 
 ```
+### To print log in console : 
+```c++
+ //AddLog can take args as printf do : 
+ Console::AddLog("[error] Red message  \n");
+ Console::AddLog("[success] Green message  \n");
+ Console::AddLog("[warning] Orange message  \n");
+ 
+```
 
 ## Screen :
 ![Screen](https://cdn.discordapp.com/attachments/869316172384960552/925147702709325905/unknown.png)
