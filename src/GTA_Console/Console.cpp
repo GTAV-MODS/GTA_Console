@@ -110,6 +110,7 @@ char** Console::str_split(char* a_str, const char a_delim)
             token = strtok(0, delim);
         }
 
+
         //printf("IDX : %d  COUNT : %d\n", idx, count);
         assert(idx == count - 1 && ".");
         *(result + idx) = 0;
@@ -117,6 +118,8 @@ char** Console::str_split(char* a_str, const char a_delim)
 
     return result;
 }
+
+
 
 void Console::DrawConsole(const char* title, bool* showConsole)
 {
@@ -190,10 +193,11 @@ void Console::DrawConsole(const char* title, bool* showConsole)
         ImVec4 color;
         bool has_color = false;
 
-        if (strstr(item, "[error]")) { color = ImVec4(1.0f, 0.4f, 0.4f, 1.0f); has_color = true; }
-        else if (strstr(item, "[success]")) { color = ImVec4(0.0f, 1.0f, 0.4f, 1.0f); has_color = true; }
-        else if (strstr(item, "[warning]")) { color = ImVec4(1.0f, 0.8f, 0.0f, 1.0f); has_color = true; }
-        else if (strncmp(item, "#", 2) == 0) { color = ImVec4(1.0f, 0.8f, 0.6f, 1.0f); has_color = true; }
+        if (strstr(item, "[error]")) { color = ImColor(255, 0, 0); has_color = true; }
+        else if (strstr(item, "[success]")) { color = ImColor(0, 255, 0); has_color = true; }
+        else if (strstr(item, "[warning]")) { color = ImColor(255, 69, 0); has_color = true; }
+        else if (strstr(item, "[info]")) { color = ImColor(112, 128, 144); has_color = true; }
+        else if (strncmp(item, "#", 2) == 0) { color = ImColor(220, 220, 220); has_color = true; }
         if (has_color)
             ImGui::PushStyleColor(ImGuiCol_Text, color);
         ImGui::TextUnformatted(item);
@@ -218,34 +222,37 @@ void Console::DrawConsole(const char* title, bool* showConsole)
         while (input_end > InputBuf && input_end[-1] == ' ')
             input_end--; *input_end = 0;
 
-        if (!Commands::lastArgs.empty())
+        //Fix avoid having empty space before having enter an command :
+        if (Utils::StartsWith(InputBuf, " "))
+            strcpy(InputBuf, "");
+
+       if (!Commands::lastArgs.empty())
             Commands::lastArgs.erase(Commands::lastArgs.begin(), Commands::lastArgs.end());
 
-        if (InputBuf[0])
-        {
-            args = str_split(InputBuf, ' ');
+       if (InputBuf[0])
+       {
+           args = str_split(InputBuf, ' ');
 
-            //Check if the args exist : 
-            if (args)
-            {
-                if (*(args + 1) != 0)
-                {
-                    //Loop though all arguments :
-                    for (int i = 1; *(args + i); i++)
-                    {
-                        //printf("commande loop %s |args  = [%s]\n\n\n", InputBuf, *(args + i));
-                        if (*(args + i) != 0)
-                        {
-                            Commands::lastArgs.push_back(*(args + i));
-                            free(*(args + i));
-                        }
-                    }
-                }
-            }
-            strcpy(Commands::InputBuf, InputBuf);
-            Commands::callExecCommand = true;
-            free(args);
-        }
+           //Check if the args exist : 
+           if (args)
+           {
+               //Loop though all arguments :
+               for (int i = 1; *(args + i); i++)
+               {
+                   //printf("commande loop %s |args  = [%s]\n\n\n", InputBuf, *(args + i));
+                   if (*(args + i) != 0)
+                   {
+                       Commands::lastArgs.push_back(*(args + i));
+                       free(*(args + i));
+                   }
+               }
+
+               //Only free the memory when needed :
+               free(args);
+           }
+           strcpy(Commands::InputBuf, InputBuf);
+           Commands::callExecCommand = true;
+       }
         strcpy(InputBuf, "");
     }
 

@@ -1,5 +1,4 @@
 #include <stdafx.h>
-
 #include "Hwnd.h"
 
 static void OnHook()

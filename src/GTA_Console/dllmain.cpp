@@ -6,12 +6,13 @@
 unsigned int __stdcall showConsoleDebug(void* arg)
 {
 	AllocConsole();
-	SetConsoleTitle("GTA CONSOLE BY SUPER COOL NINJA VERSION 1.0");
+	SetConsoleTitle("GTA_CONSOLE BY SUPER COOL NINJA VERSION 1.1");
 	freopen("CONIN$", "r", stdin);
 	freopen("CONOUT$", "w", stdout);
 	freopen("CONOUT$", "w", stderr);
 
 	LOG_SUCCESS(); printf("Console debug mode thread started.\n");
+	LOG_INFO(); printf("Please do not start your game in fullscreen mode!\nWaiting for ImGui To be Hook...\n");
 	return 0;
 }
 

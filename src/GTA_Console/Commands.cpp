@@ -3,7 +3,7 @@
 
 
 #pragma region MAIN_LOGIC_COMMANDS_STUFF
-void Commands::RegisterCommand(const char* command, void (*ptr)(std::vector<std::string>&))
+void Commands::RegisterCommand(const char* command, const char* description, void (*ptr)(std::vector<std::string>&))
 {
     if (!Commands::CommandList.empty())
     {
@@ -15,15 +15,17 @@ void Commands::RegisterCommand(const char* command, void (*ptr)(std::vector<std:
         }
         else
         {
+            Commands::cmdDescription.push_back(description);
             Commands::CommandList.insert(std::pair<std::string_view, void (*)(std::vector<std::string>&)>(command, (*ptr)));
-            printf("New command has been added ! %s \n", command);
+            printf("New command has been added ! %s %s\n", command, description);
             return;
         }
     }
     else
     {
+        Commands::cmdDescription.push_back(description);
         Commands::CommandList.insert(std::pair<std::string_view, void (*)(std::vector<std::string>&)>(command, (*ptr)));
-        printf("New command has been added ! %s \n", command);
+        printf("New command has been added ! %s %s\n", command, description);
         return;
     }
 }
@@ -142,20 +144,34 @@ void Commands::SpawnPedsPattern(const int MAX_PEDS)
 //Add your commands and interaction here : 
 void Commands::InitCommands()
 {
-
     //COMMAND : /help that allow you to watch all the commands added : 
-    Commands::RegisterCommand("/help", [](std::vector<std::string>& args) {
+    Commands::RegisterCommand("/help", "Usage : /help (Get the list of all available commands)", [](std::vector<std::string>& args) {
         if (!Commands::CommandList.empty())
         {
+            Console::AddLog("List of colors available :");
+            Console::AddLog("[error] Red Color.");
+            Console::AddLog("[success] Green Color.");
+            Console::AddLog("[warning] Orange Color.");
+            Console::AddLog("[info] Gray Color.");
+            Console::AddLog("[#] Gray bold Color.");
+            Console::AddLog("\n \n");
+
+
             Console::AddLog("List of available commands :");
-            for (auto const& cmd : Commands::CommandList)
-                Console::AddLog("%s", (const char*)cmd.first.data());
+            int index = 0;
+            std::sort(Commands::cmdDescription.begin(), Commands::cmdDescription.end());
+            for (std::map<std::string_view, void (*)(std::vector <std::string>&)>::iterator i = Commands::CommandList.begin(); i != Commands::CommandList.end(); i++)
+            {
+                Console::AddLog("[info] %s : [%s]", (const char*)i->first.data(), (const char*)Commands::cmdDescription[index].data());
+                index++;
+            }
+            index = 0;
         }
     });
 
 
     //COMMAND : /veh [255 255 255] let you spawn a vehicle with colors of your choice using RGB args [for e.g : /veh adder 255 0 0] will spawn you an red adder.
-    Commands::RegisterCommand("/veh", [](std::vector<std::string>& args)
+    Commands::RegisterCommand("/veh", "Usage : /veh [model] [number R number G number B] (Spawn a vehicle with customs colors)", [](std::vector<std::string>& args)
     {
             if (!args.empty())
             {
@@ -189,7 +205,7 @@ void Commands::InitCommands()
     
     
     //COMMAND : /peds [number of peds] let you spawn the number of peds with a triangle pattern [for e.g : /peds 30] becareful with that you can crash if you expose to many peds in front you.
-    Commands::RegisterCommand("/peds", [](std::vector<std::string>& args) {
+    Commands::RegisterCommand("/peds", "Usage : /peds [numbers of peds to spawn] (Spawn x numbers of peds with pyramid pattern).", [](std::vector<std::string>& args) {
         //Check if the args is not empty : 
         if (!args.empty())
         {
@@ -219,7 +235,7 @@ void Commands::InitCommands()
 
 
     //COMMAND : /god [1/0] let you be in godmode [for e.g : /god 1].
-    Commands::RegisterCommand("/god", [](std::vector<std::string>& args) {
+    Commands::RegisterCommand("/god", "Usage : /god [1/0] (Let you be in GodMode)", [](std::vector<std::string>& args) {
         //Check if the args is not empty : 
         if (!args.empty())
         {
@@ -250,11 +266,11 @@ void Commands::InitCommands()
 
 
     //COMMAND : /clear let you clear all the previous commands.
-    Commands::RegisterCommand("/clear", [](std::vector<std::string>& args) {Console::ClearLog(); });
+    Commands::RegisterCommand("/clear", "Usage : /clear (Clear all the previous command)", [](std::vector<std::string>& args) {Console::ClearLog(); });
 
 
     //COMMAND : /quit simply terminate the actual process(GTA V).
-    Commands::RegisterCommand("/quit", [](std::vector<std::string>& args) {TerminateProcess(GetCurrentProcess(), 0); });
+    Commands::RegisterCommand("/quit", "Usage : /quit (Let you exit the game)", [](std::vector<std::string>& args) {TerminateProcess(GetCurrentProcess(), 0); });
 }
 
 #pragma endregion

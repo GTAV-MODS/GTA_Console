@@ -48,3 +48,10 @@ char* Utils::Strdup(const char* s)
 	IM_ASSERT(buf);
 	return (char*) memcpy(buf, (const void*)s, len); 
 }
+
+bool Utils::StartsWith(const char* buffer, const char* prefix)
+{
+	size_t lengthPrefix = strlen(prefix),
+		lengthBuffer = strlen(buffer);
+	return lengthBuffer < lengthPrefix ? false : memcmp(prefix, buffer, lengthPrefix) == 0; //0 for returning the prefix.
+}
