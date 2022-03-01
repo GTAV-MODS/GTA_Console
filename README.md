@@ -14,6 +14,12 @@ Now change the Output directory to your game directory. (Make sure to have your 
 
 
 
+## I can't build it. I have an error like the screen : 
+![Screen](https://cdn.discordapp.com/attachments/554479498721099787/948204878902202408/Capture_decran_2022-03-01_124327.png)
+Here you can find the solution : https://www.youtube.com/watch?v=kZYuVxO5sHw
+
+
+
 ## Why did you make that console ?
 A made it to help people debug them own code, and demonstrate how to communicate between multiple thread and using Native.
 And of course because it was at first a challenge for me as (i'm a beginner with C++).
